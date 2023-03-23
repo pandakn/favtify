@@ -15,14 +15,15 @@ export const SpotifyProvider = ({ children }) => {
   });
 
   const handleLogin = () => {
-    const client_id = import.meta.env.VITE_CLIENT_ID_KEY;
-    const redirect_uri = import.meta.env.VITE_REDIRECT_URI; //replace your redirect uri
+    const clientId = import.meta.env.VITE_CLIENT_ID_KEY;
+    const redirectUri =
+      import.meta.env.VITE_REDIRECT_URI || "http://localhost:5173/callback"; //replace your redirect uri
 
     const scopes = ["user-top-read", "user-read-private", "user-read-email"];
 
-    const url = `https://accounts.spotify.com/authorize?client_id=${client_id}&scope=${scopes.join(
+    const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&scope=${scopes.join(
       "%20"
-    )}&redirect_uri=${redirect_uri}&response_type=token`;
+    )}&redirect_uri=${redirectUri}&response_type=token`;
 
     window.location = url;
   };
