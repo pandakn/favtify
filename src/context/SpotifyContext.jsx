@@ -20,9 +20,9 @@ export const SpotifyProvider = ({ children }) => {
 
     const scopes = ["user-top-read", "user-read-private", "user-read-email"];
 
-    const url = `https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scopes.join(
+    const url = `https://accounts.spotify.com/authorize?client_id=${client_id}&scope=${scopes.join(
       "%20"
-    )}&response_type=token`;
+    )}&redirect_uri=${redirect_uri}&response_type=token`;
 
     window.location = url;
   };
