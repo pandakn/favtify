@@ -16,8 +16,7 @@ export const SpotifyProvider = ({ children }) => {
 
   const handleLogin = () => {
     const client_id = import.meta.env.VITE_CLIENT_ID_KEY;
-    const redirect_uri =
-      import.meta.env.VITE_REDIRECT_URI || "http://localhost:5173/callback"; //replace your redirect uri
+    const redirect_uri = import.meta.env.VITE_REDIRECT_URI; //replace your redirect uri
 
     const scopes = ["user-top-read", "user-read-private", "user-read-email"];
 
