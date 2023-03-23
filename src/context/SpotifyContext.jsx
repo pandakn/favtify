@@ -23,7 +23,7 @@ export const SpotifyProvider = ({ children }) => {
 
     const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
       "%20"
-    )}&response_type=code`;
+    )}&response_type=token`;
 
     window.location = url;
   };
