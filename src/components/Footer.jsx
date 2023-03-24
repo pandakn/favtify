@@ -1,9 +1,8 @@
 import React, { useContext, useState } from "react";
 import SpotifyContext from "../context/SpotifyContext";
 import { AiOutlineHeart } from "react-icons/ai";
-import SupportModal from "./SupportModal";
-import { TbClick } from "react-icons/tb";
 import { BiCoffeeTogo } from "react-icons/bi";
+import SupportModal from "./SupportModal";
 
 const Footer = () => {
   const { loggedIn } = useContext(SpotifyContext);
@@ -21,7 +20,7 @@ const Footer = () => {
         }`}
       >
         <div className="text-center flex flex-col gap-2 justify-center items-center mb-10">
-          <div className="flex gap-2 justify-center items-center mb-2">
+          <div className="flex gap-2 justify-center text-sm items-center mb-2">
             Made by <AiOutlineHeart />
             <a
               href="https://github.com/pandakn"

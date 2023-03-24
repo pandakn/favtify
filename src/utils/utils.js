@@ -1,4 +1,3 @@
-import domtoimage from "dom-to-image";
 import html2canvas from "html2canvas";
 
 export const logout = () => {
@@ -14,20 +13,6 @@ export const logout = () => {
     location.href = "/";
   }, 800);
 };
-
-// export const downloadImage = (dom) => {
-//   domtoimage
-//     .toJpeg(dom, { quality: 0.95 })
-//     .then(function (dataUrl) {
-//       const link = document.createElement("a");
-//       link.download = "Favtify.jpeg";
-//       link.href = dataUrl;
-//       link.click();
-//     })
-//     .catch(function (error) {
-//       console.error("oops, something went wrong!", error);
-//     });
-// };
 
 const hiddenClone = (element) => {
   // Create clone of element
@@ -60,25 +45,6 @@ export const downloadImage = (dom) => {
     document.body.removeChild(link);
   });
 };
-
-// export const playTrack = (url) => {
-//   const audio = new Audio(url);
-//   audio.addEventListener("timeupdate", handleTimeUpdate);
-
-//   function handleTimeUpdate() {
-//     let currentTime = audio.currentTime;
-
-//     if (currentTime >= 10) {
-//       currentTime = 0;
-//       audio.pause();
-//       audio.removeEventListener("timeupdate", handleTimeUpdate);
-//     } else if (currentTime >= 7.5 && currentTime < 10) {
-//       audio.volume -= 0.1;
-//     }
-//   }
-
-//   audio.play();
-// };
 
 export const menuTimeRange = [
   {
