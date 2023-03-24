@@ -16,7 +16,7 @@ const CardInfo = ({ topTracks, cardContainer, handleClick }) => {
       className="text-black w-[340px] px-5 h-auto bg-cover flex flex-col items-center justify-center hover:cursor-pointer"
       onClick={handleClick}
       style={{
-        backgroundImage: `linear-gradient(rgba(237,231,218, 0.8), rgba(237,231,218, 0.8)), url(${paperTexture})`,
+        backgroundImage: `linear-gradient(rgba(237,231,218, 0.7), rgba(237,231,218, 0.7)), url(${paperTexture})`,
       }}
     >
       <section className="text-center w-full my-4">
@@ -36,7 +36,7 @@ const CardInfo = ({ topTracks, cardContainer, handleClick }) => {
           );
         })}
       </div>
-      <p className="mb-4 text-sm text-center">Favtify.com</p>
+      <p className="mb-5 text-sm text-center">favtify.vercel.app</p>
     </div>
   );
 };

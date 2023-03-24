@@ -17,12 +17,12 @@ body {
   font-family: "Silkscreen", cursive;
 } */
 
-.scrollbar-hide::-webkit-scrollbar {
+body::-webkit-scrollbar {
   display: none;
 }
 
 /* For IE, Edge and Firefox */
-.scrollbar-hide {
+body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }

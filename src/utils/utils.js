@@ -61,24 +61,24 @@ export const downloadImage = (dom) => {
   });
 };
 
-export const playTrack = (url) => {
-  const audio = new Audio(url);
-  audio.addEventListener("timeupdate", handleTimeUpdate);
+// export const playTrack = (url) => {
+//   const audio = new Audio(url);
+//   audio.addEventListener("timeupdate", handleTimeUpdate);
 
-  function handleTimeUpdate() {
-    let currentTime = audio.currentTime;
+//   function handleTimeUpdate() {
+//     let currentTime = audio.currentTime;
 
-    if (currentTime >= 10) {
-      currentTime = 0;
-      audio.pause();
-      audio.removeEventListener("timeupdate", handleTimeUpdate);
-    } else if (currentTime >= 7.5 && currentTime < 10) {
-      audio.volume -= 0.1;
-    }
-  }
+//     if (currentTime >= 10) {
+//       currentTime = 0;
+//       audio.pause();
+//       audio.removeEventListener("timeupdate", handleTimeUpdate);
+//     } else if (currentTime >= 7.5 && currentTime < 10) {
+//       audio.volume -= 0.1;
+//     }
+//   }
 
-  audio.play();
-};
+//   audio.play();
+// };
 
 export const menuTimeRange = [
   {

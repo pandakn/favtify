@@ -29,7 +29,7 @@ const Home = () => {
   };
 
   return (
-    <div className="container mx-auto overflow-x-hidden scrollbar-hide">
+    <div className="container mx-auto overflow-x-hidden">
       {/* <BackgroundAnimate /> */}
       {!loggedIn ? (
         <div className=" flex flex-col justify-center items-center h-screen">
