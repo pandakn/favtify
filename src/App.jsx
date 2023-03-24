@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 // Component
 import Home from "./pages/Home";
 import { SpotifyProvider } from "./context/SpotifyContext";

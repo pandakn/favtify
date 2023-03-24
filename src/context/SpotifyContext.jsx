@@ -1,11 +1,19 @@
 import { createContext, useState, useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
-
 const SpotifyContext = createContext();
 
 const spotifyApi = new SpotifyWebApi();
 
+const AUTH_URL = "https://accounts.spotify.com/authorize";
+const CLIENT_ID = import.meta.env.VITE_CLIENT_ID_KEY;
+const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET_KEY;
+const REDIRECT_URI =
+  import.meta.env.VITE_REDIRECT_URI || "http://localhost:5173/callback"; //replace your redirect uri
+
+const SCOPES = ["user-top-read", "user-read-private", "user-read-email"];
+
 export const SpotifyProvider = ({ children }) => {
+  const [token, setToken] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [topTracks, setTopTracks] = useState([]);
@@ -15,34 +23,38 @@ export const SpotifyProvider = ({ children }) => {
   });
 
   const handleLogin = () => {
-    const clientId = import.meta.env.VITE_CLIENT_ID_KEY;
-    const redirectUri =
-      import.meta.env.VITE_REDIRECT_URI || "http://localhost:5173/callback"; //replace your redirect uri
+    const queryParams = new URLSearchParams({
+      response_type: "code",
+      client_id: CLIENT_ID,
+      redirect_uri: REDIRECT_URI,
+      scope: SCOPES.join(" "),
+    });
 
-    const scopes = ["user-top-read", "user-read-private", "user-read-email"];
-
-    const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
-      "%20"
-    )}&response_type=token`;
-
-    window.location = url;
+    const authUrl = `${AUTH_URL}?${queryParams.toString()}`;
+    window.location.href = authUrl;
   };
 
-  const handleCallback = () => {
-    const hash = window.location.hash
-      .substring(1)
-      .split("&")
-      .reduce(function (initial, item) {
-        if (item) {
-          const parts = item.split("=");
-          initial[parts[0]] = decodeURIComponent(parts[1]);
-        }
-        return initial;
-      }, {});
+  const handleTokenExchange = async (code) => {
+    const tokenUrl = "https://accounts.spotify.com/api/token";
+    const bodyParams = new URLSearchParams({
+      grant_type: "authorization_code",
+      code,
+      redirect_uri: REDIRECT_URI,
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+    });
 
-    window.location.hash = "";
+    const response = await fetch(tokenUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: bodyParams.toString(),
+    });
 
-    let _token = hash.access_token;
+    const data = await response.json();
+    const _token = data.access_token;
+    setToken(_token);
 
     if (_token) {
       spotifyApi.setAccessToken(_token);
@@ -51,6 +63,16 @@ export const SpotifyProvider = ({ children }) => {
         setUserInfo(data);
         setLoggedIn(!loggedIn);
       });
+    }
+  };
+
+  const handleCallback = () => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const code = urlSearchParams.get("code");
+
+    if (code) {
+      handleTokenExchange(code);
+      window.history.replaceState({}, null, "/");
     }
   };
 
@@ -71,11 +93,11 @@ export const SpotifyProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (window.location.hash) {
+    if (!token) {
       handleCallback();
     }
 
-    loggedIn && getTopTracks();
+    token && getTopTracks();
   }, [timeRange, loggedIn]);
 
   return (
