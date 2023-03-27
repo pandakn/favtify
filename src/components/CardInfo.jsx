@@ -4,6 +4,7 @@ import SpotifyContext from "../context/SpotifyContext";
 import { formatDate } from "../utils/utils";
 
 import paperTexture from "../assets/bg-paper.jpeg";
+import { BsSpotify } from "react-icons/bs";
 
 const CardInfo = ({ topTracks, cardContainer, handleClick }) => {
   const { userInfo, timeRange } = useContext(SpotifyContext);
@@ -20,6 +21,9 @@ const CardInfo = ({ topTracks, cardContainer, handleClick }) => {
       }}
     >
       <section className="text-center w-full my-4">
+        <div className="flex justify-center items-center text-2xl mb-2">
+          <BsSpotify />
+        </div>
         <h1 className="text-3xl font-bold mb-2">Favtify</h1>
         <h3 className="text-lg italic">Owner: {userInfo.display_name}</h3>
         <p className="capitalize italic text-lg">{timeRange.label}</p>

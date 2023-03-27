@@ -10,7 +10,7 @@ const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET_KEY;
 const REDIRECT_URI =
   import.meta.env.VITE_REDIRECT_URI || "http://localhost:5173/callback"; //replace your redirect uri
 
-const SCOPES = ["user-top-read", "user-read-private", "user-read-email"];
+const SCOPES = ["user-read-private", "user-read-email", "user-top-read"];
 
 export const SpotifyProvider = ({ children }) => {
   const [token, setToken] = useState(null);
@@ -27,7 +27,7 @@ export const SpotifyProvider = ({ children }) => {
       response_type: "code",
       client_id: CLIENT_ID,
       redirect_uri: REDIRECT_URI,
-      scope: SCOPES.join(" "),
+      scope: SCOPES.join("%20"),
     });
 
     const authUrl = `${AUTH_URL}?${queryParams.toString()}`;
@@ -53,16 +53,16 @@ export const SpotifyProvider = ({ children }) => {
     });
 
     const data = await response.json();
-    const _token = data.access_token;
+    const _token = await data.access_token;
     setToken(_token);
+
+    console.log("access_token", _token);
 
     if (_token) {
       spotifyApi.setAccessToken(_token);
-
-      spotifyApi.getMe().then((data) => {
-        setUserInfo(data);
-        setLoggedIn(!loggedIn);
-      });
+      const user = await spotifyApi.getMe();
+      setUserInfo(user);
+      setLoggedIn(!loggedIn);
     }
   };
 
@@ -76,13 +76,6 @@ export const SpotifyProvider = ({ children }) => {
     }
   };
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    const selectedIndex = e.target.selectedIndex;
-    const label = e.target[selectedIndex].label;
-    setTimeRange({ value: value, label: label });
-  };
-
   const getTopTracks = () => {
     spotifyApi
       .getMyTopTracks({ time_range: timeRange.value, limit: 9 })
@@ -92,13 +85,16 @@ export const SpotifyProvider = ({ children }) => {
       });
   };
 
-  useEffect(() => {
-    if (!token) {
-      handleCallback();
-    }
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const selectedIndex = e.target.selectedIndex;
+    const label = e.target[selectedIndex].label;
+    setTimeRange({ value: value, label: label });
+  };
 
-    token && getTopTracks();
-  }, [timeRange, loggedIn]);
+  useEffect(() => {
+    token ? getTopTracks() : handleCallback();
+  }, [timeRange, loggedIn, token]);
 
   return (
     <SpotifyContext.Provider
