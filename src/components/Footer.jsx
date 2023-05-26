@@ -32,7 +32,7 @@ const Footer = () => {
               {/* Pandakn */}
             </a>
           </div>
-          <div className="flex items-center justify-center gap-2 text-brownPrimary">
+          {/* <div className="flex items-center justify-center gap-2 text-brownPrimary">
             <button
               onClick={handleClick}
               className="capitalize hover:underline text-sm "
@@ -40,11 +40,11 @@ const Footer = () => {
               Support Me
             </button>
             <BiCoffeeTogo />
-          </div>
+          </div> */}
           {/* modal */}
         </div>
       </div>
-      {isShowModal && <SupportModal handleClick={handleClick} />}
+      {/* {isShowModal && <SupportModal handleClick={handleClick} />} */}
     </>
   );
 };
