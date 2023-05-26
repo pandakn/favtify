@@ -3,7 +3,7 @@ import { TypeAnimation } from "react-type-animation";
 // components
 import SpotifyLogin from "../components/SpotifyLogin";
 import Dropdown from "../components/Dropdown";
-import FlipCard from "../components/FlipCard";
+import CardInfo from "../components/CardInfo";
 import Button from "../components/Button";
 
 import SpotifyContext from "../context/SpotifyContext";
@@ -20,13 +20,9 @@ const wordForFun = [
 ];
 
 const Home = () => {
-  const { loggedIn } = useContext(SpotifyContext);
+  const { loggedIn, topTracks } = useContext(SpotifyContext);
   const [isFlipped, setIsFlipped] = useState(false);
   const cardContainer = useRef(null);
-
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped);
-  };
 
   return (
     <div className="container mx-auto overflow-x-hidden">
@@ -51,21 +47,16 @@ const Home = () => {
           {/* card */}
           <div className="flex flex-col items-center my-4 overflow-hidden">
             <Dropdown />
-            <FlipCard
-              handleClick={handleFlip}
-              isFlipped={isFlipped}
-              cardContainer={cardContainer}
-            />
+
+            <CardInfo topTracks={topTracks} cardContainer={cardContainer} />
 
             {/* Button Download and Logout */}
-            {isFlipped && (
-              <Button
-                label="download"
-                handleClick={() => downloadImage(cardContainer.current)}
-              >
-                download image
-              </Button>
-            )}
+            <Button
+              label="download"
+              handleClick={() => downloadImage(cardContainer.current)}
+            >
+              download image
+            </Button>
             <Button label="logout" handleClick={logout}>
               logout
             </Button>

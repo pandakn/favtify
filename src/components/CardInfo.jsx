@@ -6,7 +6,7 @@ import { formatDate } from "../utils/utils";
 import paperTexture from "../assets/bg-paper.jpeg";
 import { BsSpotify } from "react-icons/bs";
 
-const CardInfo = ({ topTracks, cardContainer, handleClick }) => {
+const CardInfo = ({ topTracks, cardContainer }) => {
   const { userInfo, timeRange } = useContext(SpotifyContext);
   const date = new Date();
   const formattedDate = formatDate(date);
@@ -15,7 +15,6 @@ const CardInfo = ({ topTracks, cardContainer, handleClick }) => {
     <div
       ref={cardContainer}
       className="text-black w-[340px] px-5 h-auto bg-cover flex flex-col items-center justify-center hover:cursor-pointer"
-      onClick={handleClick}
       style={{
         backgroundImage: `linear-gradient(rgba(237,231,218, 0.7), rgba(237,231,218, 0.7)), url(${paperTexture})`,
       }}
@@ -33,10 +32,10 @@ const CardInfo = ({ topTracks, cardContainer, handleClick }) => {
       <div className="flex flex-col gap-y-5 mb-5">
         {topTracks.map((track) => {
           return (
-            <div key={track.id} className="text-center">
+            <a href={track.url} key={track.id} className="text-center">
               <p className="text-sm pb-1 font-bold">{track.name}</p>
               <p className="text-[12px]">{track.artists[0].name}</p>
-            </div>
+            </a>
           );
         })}
       </div>
