@@ -10,7 +10,7 @@ const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET_KEY;
 const REDIRECT_URI =
   import.meta.env.VITE_REDIRECT_URI || "http://localhost:5173/callback"; //replace your redirect uri
 
-const SCOPES = ["user-read-private", "user-read-email", "user-top-read"];
+const SCOPES = ["user-read-private", "user-top-read"];
 
 export const SpotifyProvider = ({ children }) => {
   const [token, setToken] = useState(null);
