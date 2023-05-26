@@ -14,14 +14,14 @@ const CardInfo = ({ topTracks, cardContainer }) => {
   return (
     <div
       ref={cardContainer}
-      className="text-black w-[340px] px-5 h-auto bg-cover flex flex-col items-center justify-center hover:cursor-pointer"
+      className="text-black w-[340px] px-5 h-auto bg-cover flex flex-col items-center justify-center"
       style={{
         backgroundImage: `linear-gradient(rgba(237,231,218, 0.7), rgba(237,231,218, 0.7)), url(${paperTexture})`,
       }}
     >
       <section className="text-center w-full my-4">
         <div className="flex justify-center items-center text-2xl mb-2">
-          <BsSpotify />
+          <BsSpotify className="h-10 w-10" />
         </div>
         <h1 className="text-3xl font-bold mb-2">Favtify</h1>
         <h3 className="text-lg italic">Owner: {userInfo.display_name}</h3>
@@ -32,7 +32,12 @@ const CardInfo = ({ topTracks, cardContainer }) => {
       <div className="flex flex-col gap-y-5 mb-5">
         {topTracks.map((track) => {
           return (
-            <a href={track.url} key={track.id} className="text-center">
+            <a
+              href={track.external_urls.spotify}
+              target="_blank"
+              key={track.id}
+              className="text-center"
+            >
               <p className="text-sm pb-1 font-bold">{track.name}</p>
               <p className="text-[12px]">{track.artists[0].name}</p>
             </a>

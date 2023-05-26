@@ -21,7 +21,6 @@ const wordForFun = [
 
 const Home = () => {
   const { loggedIn, topTracks } = useContext(SpotifyContext);
-  const [isFlipped, setIsFlipped] = useState(false);
   const cardContainer = useRef(null);
 
   return (
