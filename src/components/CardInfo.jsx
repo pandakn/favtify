@@ -21,7 +21,9 @@ const CardInfo = ({ topTracks, cardContainer }) => {
     >
       <section className="text-center w-full my-4">
         <div className="flex justify-center items-center text-2xl mb-2">
-          <BsSpotify className="h-10 w-10" />
+          <a href="https://open.spotify.com/" target="_blank">
+            <BsSpotify className="h-10 w-10" />
+          </a>
         </div>
         <h1 className="text-3xl font-bold mb-2">Favtify</h1>
         <h3 className="text-lg italic">Owner: {userInfo.display_name}</h3>

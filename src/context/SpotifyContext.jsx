@@ -56,8 +56,6 @@ export const SpotifyProvider = ({ children }) => {
     const _token = await data.access_token;
     setToken(_token);
 
-    console.log("access_token", _token);
-
     if (_token) {
       spotifyApi.setAccessToken(_token);
       const user = await spotifyApi.getMe();
@@ -80,7 +78,7 @@ export const SpotifyProvider = ({ children }) => {
     spotifyApi
       .getMyTopTracks({ time_range: timeRange.value, limit: 9 })
       .then((track) => {
-        console.log("top tracks ", track.items);
+        // console.log("top tracks ", track.items);
         setTopTracks(track.items);
       });
   };
